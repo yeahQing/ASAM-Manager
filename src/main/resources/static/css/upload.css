@@ -1,0 +1,141 @@
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile + label {
+    max-width: 80%;
+    font-size: 1.25rem;
+    /* 20px */
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+    border-radius: 5px;
+    /* 10px 20px */
+}
+
+.no-js .inputfile + label {
+    display: none;
+}
+
+.inputfile:focus + label,
+.inputfile.has-focus + label {
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+}
+
+.inputfile + label * {
+    /* pointer-events: none; */
+    /* in case of FastClick lib use */
+}
+
+.inputfile + label svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: currentColor;
+    margin-top: -0.25em;
+    /* 4px */
+    margin-right: 0.25em;
+    /* 4px */
+}
+
+
+/* style 1 */
+
+.inputfile-1 + label {
+    color: #ffffff;
+    background-color: #333333;
+}
+
+.inputfile-1:focus + label,
+.inputfile-1.has-focus + label,
+.inputfile-1 + label:hover {
+    background-color: #a4b0be;
+}
+.box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.submit_btn{
+    color: #ffffff;
+    background-color: #333333;
+    font-size: 1.25rem;
+    /* 20px */
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    margin: 0px auto;
+}
+.submit_btn:hover{
+    background-color: #a4b0be;
+}
+.upload{
+    display: block;
+    width: 100%;
+}
+.info{
+    text-align: center;
+    color: #ff6b6b;
+    font-size: 1.25rem;
+    /* 20px */
+    font-weight: 700;
+    display: none;
+}
+
+.loading{
+    float: right;
+    height: 20px;
+    display: none;
+    align-content: center;
+    margin-top: 15px;
+    margin-right: 15px;
+}
+
+.obj{
+    width: 6px;
+    height: 20px;
+    background: #333333;
+    margin: 0 3px;
+    border-radius: 10px;
+    animation: loading 0.8s infinite;
+}
+
+.obj:nth-child(2){
+    animation-delay: 0.1s;
+}
+.obj:nth-child(3){
+    animation-delay: 0.2s;
+}
+.obj:nth-child(4){
+    animation-delay: 0.3s;
+}
+
+@keyframes loading{
+    0%{
+        height: 0;
+    }
+    50%{
+        height: 20px;
+    }
+    100%{
+        height: 0;
+    }
+}

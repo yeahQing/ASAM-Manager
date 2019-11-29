@@ -1,0 +1,157 @@
+* {
+    font-family: sans-serif; /* Change your font family */
+}
+
+.wrapper{
+    width: 1200px;
+    background-color: #ffffff;
+    height: 500px;
+    padding: 80px 40px;
+    border-radius: 5px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.content-table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    font-size: 1rem;
+    min-width: 960px;
+    border-radius: 5px;
+    text-align: center;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.content-table thead tr {
+    background-color: #333;
+    color: #ffffff;
+    font-weight: bold;
+    border-bottom: 5px solid #dddddd;
+}
+
+.content-table th,
+.content-table td {
+    padding: 25px 15px;
+}
+
+.content-table tbody tr {
+    font-weight: bold;
+    font-size: .9rem;
+    border-bottom: 1px solid #dddddd;
+    cursor: pointer;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.content-table tbody tr:last-of-type {
+    border-bottom: 1px solid #333;
+}
+
+.edit{
+    color: #3498db;
+}
+
+.del{
+    color:#ff6b6b;
+}
+
+.content-table tbody tr:hover {
+    background-color: #333;
+    color: #ffffff;
+}
+
+.content-table tbody tr:hover .edit{
+    color: #2980b9;
+}
+
+.content-table tbody tr:hover .del{
+    color: #ee5253;
+}
+
+.content-table tbody tr td a{
+    text-decoration: none;
+}
+
+.pagination{
+    position: absolute;
+    color: #fff;
+    font-size: .9rem;
+    font-weight: 900;
+    left: 50%;
+    transform: translate(-50%,0);
+    text-align: center;
+}
+
+.pagination ul{
+    list-style: none;
+}
+
+.pagination ul li{
+    float: left;
+    margin-left: 5px;
+}
+
+.pagination ul li a{
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    background: #333;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.active{
+    font-size: 1.2rem;
+    color: #333 !important;
+    background-color: #fff !important;
+}
+
+.disable{
+    display: none !important;
+}
+
+.pagination ul li:hover{
+    font-size: 1.2rem;
+    color: #333;
+    background: #fff;
+    transition: all .3s;
+}
+
+.info-empty{
+    text-align: center;
+    margin: 10px;
+    font-size: 20px;
+    font-family: sans-serif;
+    FONT-WEIGHT: 500;
+    padding: 50px 0;
+    width: 100%;
+}
+
+.score-value{
+    border: none;
+    outline: none;
+    padding: 5px;
+    text-align: center;
+    width: 80px;
+    font-weight: 900;
+    border-radius: 5px;
+}
+
+.pass{
+    color: #009879;
+}
+
+.unpass{
+    color: #ee5253;
+}
+
+
+

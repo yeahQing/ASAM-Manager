@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+    <link rel="stylesheet" th:href="@{/css/tableStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/confirm/confirm.css}"/>
+    <script th:src="@{/js/confirm/confirm.js}"></script>
+</head>
+<body>
+<div class="wrapper">
+    <table class="content-table">
+        <thead>
+        <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>出生日期</th>
+            <th>身份证号</th>
+            <th>专业</th>
+            <th>入学时间</th>
+            <th>班级</th>
+            <th colspan="2">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="stu : ${studentIPage.getRecords()}">
+            <td th:text="${stu.getStuId()}"></td>
+            <td th:text="${stu.getStuName()}"></td>
+            <td th:switch="${stu.getGender()}">
+                <label th:case="0">未知</label>
+                <label th:case="1">男</label>
+                <label th:case="2">女</label>
+            </td>
+            <td th:text="${stu.getBirth()}"></td>
+            <td th:text="${stu.getIdCard()}"></td>
+            <td th:text="${stu.getMajor()}"></td>
+            <td th:text="${stu.getGrade()}+'级'"></td>
+            <td th:text="${stu.getStuClass()}+'班'"></td>
+            <td><a th:href="${'/admin/editStu/'+stu.getStuId()}" class="edit">编辑</a></td>
+<!--            <td><a th:href="${'/admin/delStu/'+stu.getStuId()}" class="del">删除</a></td>-->
+            <td><a class="del" th:data-id="${stu.getStuId()}" onclick="delStu(this.getAttribute('data-id'))">删除</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${studentIPage.getTotal() == 0}" class="info-empty">
+        暂无信息
+    </div>
+    <div th:if="${studentIPage.getTotal() != 0}" class="pagination">
+        <ul>
+            <li>
+                <a th:class="${studentIPage.getCurrent()==1}?'disable'" th:href="@{/admin/getStudentList(page=${studentIPage.getCurrent()}-1)}"><i class="fas fa-chevron-left"></i></a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(1,studentIPage.getPages())}">
+                <a th:href="@{/admin/getStudentList(page=${i})}" th:text="${i}" th:class="${i == studentIPage.getCurrent()}?'active'"></a>
+            </li>
+            <li>
+                <a th:class="${studentIPage.getCurrent()==studentIPage.getPages()}?'disable'" th:href="@{/admin/getStudentList(page=${studentIPage.getCurrent()}+1)}"><i class="fas fa-chevron-right"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+<script>
+
+    function delStu(stuId){
+        Confirm.open({
+            title: '警告',
+            message: '删除该学生后无法恢复且不能登录，是否删除?',
+            onok: () => {
+                location.href='http://localhost:8888/admin/delStu/'+stuId;
+            }
+        })
+    }
+
+</script>
+</html>

@@ -1,0 +1,29 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 8888
+  servlet:
+    context-path: /
+spring:
+  datasource: # 数据库连接配置
+    driver-class-name: com.mysql.cj.jdbc.Driver  # 8.0 com.mysql.jdbc.Driver
+    url: jdbc:mysql:///student_manager?serverTimezone=UTC
+    username: root
+    password: yeahqing919
+    # durid
+  devtools: # 开发工具
+    restart:
+      enabled: true
+  http:
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
+  thymeleaf: # jsp thymeleaf
+    encoding: UTF-8
+    cache: false
+    mode: HTML
+# Logger Config
+logging: # 日志文件
+  level:
+    com.yq.edu: debug

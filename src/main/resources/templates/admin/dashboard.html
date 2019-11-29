@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard/dashboard.css}" />
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+</head>
+
+<body>
+<div class="middle">
+    <div class="counting-sec">
+        <div class="inner-width">
+            <div class="col">
+                <i class="fas fa-user-graduate"></i>
+                <div class="num" th:text="${studentCount}">0</div>
+                学生数
+            </div>
+            <div class="col">
+                <i class="fas fa-user-tie"></i>
+                <div class="num" th:text="${teacherCount}">0</div>
+                教师数
+            </div>
+            <div class="col">
+                <i class="fas fa-book"></i>
+                <div class="num" th:text="${lessonCount}">0</div>
+                课程数
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/js/jquery/jquery-3.4.1.js}"></script>
+<script th:src="@{/js/jquery.counterup.js}"></script>
+<script th:src="@{/js/jquery.waypoints.js}"></script>
+<script type="text/javascript">
+    $(".num").counterUp({ delay: 10, time: 1000 });
+</script>
+
+</html>

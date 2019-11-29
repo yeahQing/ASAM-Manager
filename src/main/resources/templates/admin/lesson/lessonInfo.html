@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>课程详情</title>
+    <link rel="stylesheet" th:href="@{/css/edit.css}"/>
+</head>
+<body>
+<div class="wrapper">
+    <h2>课程详情</h2>
+        <div class="formList">
+            <div class="item">
+                <label for="id">申请编号:</label>
+                <input name="id" class="disable" id="id" type="text" th:value="${id}" placeholder="申请编号" readonly="readonly"
+                       autocomplete="off" />
+            </div>
+            <div class="item">
+                <label for="lessonId">课程号:</label>
+                <input name="lessonId" class="disable" id="lessonId" type="text" th:value="${lesson.getLessonId()}" placeholder="课程号" readonly="readonly"
+                       autocomplete="off" />
+            </div>
+            <div class="item">
+                <label for="lessonName">课程名:</label>
+                <input name="lessonName" class="disable" id="lessonName" type="text" th:value="${lesson.getLessonName()}" placeholder="课程名" readonly="readonly"
+                       autocomplete="off" />
+            </div>
+            <div class="item">
+                <label for="lessonClass">教室:</label>
+                <input name="lessonClass" class="disable" id="lessonClass" type="text" th:value="${lesson.getLessonClass()}" placeholder="教室" readonly="readonly"
+                       autocomplete="off" />
+            </div>
+            <div class="item">
+                <label for="lessonScore">学分:</label>
+                <input name="lessonScore" class="disable" id="lessonScore" type="text" th:value="${lesson.getLessonScore()}" placeholder="学分" readonly="readonly"
+                       autocomplete="off" />
+            </div>
+            <div class="item">
+                <label for="lessonTime">课时:</label>
+                <input name="lessonTime" class="disable" id="lessonTime" type="text" th:value="${lesson.getLessonTime()}" placeholder="课时" readonly="readonly"
+                       autocomplete="off" />
+            </div>
+            <div class="item">
+                <label for="lessonDate">上课时间:</label>
+                <input name="lessonDate" class="disable" id="lessonDate" type="text" th:value="${lesson.getLessonDay()+lesson.getLessonDate()}" placeholder="上课时间" readonly="readonly"
+                       autocomplete="off" />
+            </div>
+            <div class="item">
+                <label for="lessonType">考试类型:</label>
+                <input name="lessonType" class="disable" id="lessonType" type="text" th:value="${lesson.getLessonType()}" placeholder="考试类型" readonly="readonly"
+                       autocomplete="off" />
+            </div>
+            <div class="item">
+                <label for="lessonLogger">备注:</label>
+                <input name="lessonLogger" class="disable" id="lessonLogger" type="text" th:value="${lesson.getLessonLogger()}" placeholder="无" readonly="readonly"
+                       autocomplete="off" />
+            </div>
+
+            <button type="button" class="btn" th:data-id="${id}" onclick="location.href='http://localhost:8888/admin/auditCondition?state=1&id='+this.getAttribute('data-id')">通过</button>
+            <button type="button" class="btn back" th:data-id="${id}" onclick="location.href='http://localhost:8888/admin/auditCondition?state=2&id='+this.getAttribute('data-id')">不通过</button>
+        </div>
+</div>
+</body>
+
+</html>

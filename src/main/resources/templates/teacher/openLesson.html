@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>开设课程页面</title>
+    <link rel="stylesheet" th:href="@{/css/edit.css}"/>
+</head>
+<body>
+<div class="wrapper">
+    <h2>开设课程</h2>
+    <form action="/teacher/askLesson" method="post">
+        <div class="formList">
+            <div class="item">
+                <label for="lessonId">课程号:</label>
+                <input name="lessonId" id="lessonId" class="disable"  type="text" th:value="${lessonId}" placeholder="课程号" readonly="readonly"
+                       autocomplete="off" />
+            </div>
+
+            <div class="item">
+                <label for="lessonName">课程名:</label>
+                <input name="lessonName" id="lessonName" type="text" placeholder="请输入课程名称" autocomplete="off" />
+            </div>
+
+            <div class="item">
+                <label for="lessonClass">地点:</label>
+                <input name="lessonClass" id="lessonClass" type="text" placeholder="请输入上课地点" autocomplete="off" />
+            </div>
+
+            <div class="item">
+                <label for="lessonScore">学分:</label>
+<!--                <input name="lessonScore" id="lessonScore" type="text" placeholder="请输入课程学分" autocomplete="off" />-->
+                <select id="lessonScore" name="lessonScore">
+                    <option value="" selected>选择学分</option>
+                    <option value="1.0">1.0</option>
+                    <option value="2.0">2.0</option>
+                    <option value="2.5">2.5</option>
+                    <option value="3.0">3.0</option>
+                    <option value="3.5">3.5</option>
+                </select>
+            </div>
+
+            <div class="item">
+                <label for="lessonTime">课时:</label>
+<!--                <input name="lessonTime" id="lessonTime" type="text" placeholder="请输入课程课时" autocomplete="off" />-->
+                <select id="lessonTime" name="lessonTime">
+                    <option value="" selected>选择课时</option>
+                    <option value="24">24</option>
+                    <option value="48">48</option>
+                </select>
+            </div>
+
+            <div class="item">
+                <label for="lessonDay">上课时间:</label>
+                <!-- <input id="gender" type="text" th:value="${student.getGender()}" placeholder="请选择性别" /> -->
+                <select id="lessonDay" name="lessonDay">
+                    <option value="" selected>选择上课日期</option>
+                    <option value="周一">周一</option>
+                    <option value="周二">周二</option>
+                    <option value="周三">周三</option>
+                    <option value="周四">周四</option>
+                    <option value="周五">周五</option>
+                    <option value="周六">周六</option>
+                    <option value="周日">周日</option>
+                </select>
+            </div>
+
+            <div class="item">
+                <label for="lessonDate">上课时间:</label>
+<!--                <input name="lessonDate" id="lessonDate" type="text"  placeholder="请输入上课时间" autocomplete="off" />-->
+                <select id="lessonDate" name="lessonDate">
+                    <option value="" selected>选择上课时间</option>
+                    <option value="8:00-9:50">8:00-9:50</option>
+                    <option value="10:10-12:00">10:10-12:00</option>
+                    <option value="14:00-15:50">14:00-15:50</option>
+                    <option value="16:10-18:00">16:10-18:00</option>
+                    <option value="19:00-20:50">19:00-20:50</option>
+                </select>
+            </div>
+
+            <div class="item">
+                <label for="lessonType">考试类型:</label>
+<!--                <input name="lessonType" id="lessonType" type="text"  placeholder="请输入考试类型" autocomplete="off" />-->
+                <select id="lessonType" name="lessonType">
+                    <option value="" selected>选择考试类型</option>
+                    <option value="开卷考试">开卷考试</option>
+                    <option value="闭卷考试">闭卷考试</option>
+                </select>
+            </div>
+
+            <div class="item">
+                <label for="lessonLogger">备注:</label>
+                <input name="lessonLogger" id="lessonLogger" type="text" placeholder="需要另行通知请写于此" autocomplete="off" />
+            </div>
+
+            <button type="submit" class="btn">申请</button>
+        </div>
+    </form>
+</div>
+</body>
+
+</html>

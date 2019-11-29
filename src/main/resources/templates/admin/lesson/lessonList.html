@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>课程列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+    <link rel="stylesheet" th:href="@{/css/tableStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/confirm/confirm.css}"/>
+    <script th:src="@{/js/confirm/confirm.js}"></script>
+</head>
+<body>
+<div class="wrapper">
+    <table class="content-table">
+        <thead>
+        <tr>
+            <th>课程号</th>
+            <th>课程名称</th>
+            <th>开课教室</th>
+            <th>学分</th>
+            <th>课时</th>
+            <th>上课周次</th>
+            <th>上课时间</th>
+            <th>考试类型</th>
+            <th>备注</th>
+            <th colspan="2">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="lesson : ${lessonIPage.getRecords()}">
+            <td th:text="${lesson.getLessonId()}"></td>
+            <td th:text="${lesson.getLessonName()}"></td>
+            <td th:text="${lesson.getLessonClass()}"></td>
+            <td th:text="${lesson.getLessonScore()}"></td>
+            <td th:text="${lesson.getLessonTime()}"></td>
+            <td th:text="${lesson.getLessonDay()}"></td>
+            <td th:text="${lesson.getLessonDate()}"></td>
+            <td th:text="${lesson.getLessonType()}"></td>
+            <td th:text="${lesson.getLessonLogger()}"></td>
+            <td><a th:href="${'/admin/editLesson/'+lesson.getLessonId()}" class="edit">编辑</a></td>
+            <!--            <td><a th:href="${'/admin/delStu/'+stu.getStuId()}" class="del">删除</a></td>-->
+            <td><a class="del" th:data-id="${lesson.getLessonId()}" onclick="delLesson(this.getAttribute('data-id'))">删除</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${lessonIPage.getTotal() == 0}" class="info-empty">
+        暂无信息
+    </div>
+    <div th:if="${lessonIPage.getTotal() != 0}" class="pagination">
+        <ul>
+            <li>
+                <a th:class="${lessonIPage.getCurrent()==1}?'disable'" th:href="@{/admin/getLessonList(page=${lessonIPage.getCurrent()}-1)}"><i class="fas fa-chevron-left"></i></a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(1,lessonIPage.getPages())}">
+                <a th:href="@{/admin/getLessonList(page=${i})}" th:text="${i}" th:class="${i == lessonIPage.getCurrent()}?'active'"></a>
+            </li>
+            <li>
+                <a th:class="${lessonIPage.getCurrent()==lessonIPage.getPages()}?'disable'" th:href="@{/admin/getLessonList(page=${lessonIPage.getCurrent()}+1)}"><i class="fas fa-chevron-right"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+<script>
+
+    function delLesson(lessonId){
+        Confirm.open({
+            title: '警告',
+            message: '删除该课程后无法恢复，是否删除?',
+            onok: () => {
+                location.href='http://localhost:8888/admin/delLesson/'+lessonId;
+            }
+        })
+    }
+
+</script>
+</html>

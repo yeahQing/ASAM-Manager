@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>教师列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+    <link rel="stylesheet" th:href="@{/css/tableStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/confirm/confirm.css}"/>
+    <script th:src="@{/js/confirm/confirm.js}"></script>
+</head>
+<body>
+<div class="wrapper">
+    <table class="content-table">
+        <thead>
+        <tr>
+            <th>教职工号</th>
+            <th>教师姓名</th>
+            <th>性别</th>
+            <th>出生日期</th>
+            <th>身份证号</th>
+            <th>职位</th>
+            <th>职称</th>
+            <th>教育背景</th>
+            <th>研究方向</th>
+            <th>所属部门/学院</th>
+            <th colspan="2">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="teacher : ${teacherIPage.getRecords()}">
+            <td th:text="${teacher.getTeacherId()}"></td>
+            <td th:text="${teacher.getTeacherName()}"></td>
+            <td th:switch="${teacher.getGender()}">
+                <label th:case="0">未知</label>
+                <label th:case="1">男</label>
+                <label th:case="2">女</label>
+            </td>
+            <td th:text="${teacher.getBirth()}"></td>
+            <td th:text="${teacher.getIdCard()}"></td>
+            <td th:text="${teacher.getJob()}"></td>
+            <td th:text="${teacher.getProfess()}"></td>
+            <td th:text="${teacher.getEducational()}"></td>
+            <td th:text="${teacher.getStudyFiled()}"></td>
+            <td th:text="${teacher.getDepartment()}"></td>
+            <td><a th:href="${'/admin/editTeacher/'+teacher.getTeacherId()}" class="edit">编辑</a></td>
+            <!--            <td><a th:href="${'/admin/delStu/'+stu.getStuId()}" class="del">删除</a></td>-->
+            <td><a class="del" th:data-id="${teacher.getTeacherId()}" onclick="delTeacher(this.getAttribute('data-id'))">删除</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${teacherIPage.getTotal() == 0}" class="info-empty">
+        暂无信息
+    </div>
+    <div th:if="${teacherIPage.getTotal() != 0}" class="pagination">
+        <ul>
+            <li>
+                <a th:class="${teacherIPage.getCurrent()==1}?'disable'" th:href="@{/admin/getTeacherList(page=${teacherIPage.getCurrent()}-1)}"><i class="fas fa-chevron-left"></i></a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(1,teacherIPage.getPages())}">
+                <a th:href="@{/admin/getTeacherList(page=${i})}" th:text="${i}" th:class="${i == teacherIPage.getCurrent()}?'active'"></a>
+            </li>
+            <li>
+                <a th:class="${teacherIPage.getCurrent()==teacherIPage.getPages()}?'disable'" th:href="@{/admin/getTeacherList(page=${teacherIPage.getCurrent()}+1)}"><i class="fas fa-chevron-right"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+<script>
+
+    function delTeacher(teacherId){
+        Confirm.open({
+            title: '警告',
+            message: '删除该教师后无法恢复且不能登录，是否删除?',
+            onok: () => {
+                location.href='http://localhost:8888/admin/delTeacher/'+teacherId;
+            }
+        })
+    }
+
+</script>
+</html>

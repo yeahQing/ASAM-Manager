@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改信息</title>
+    <link rel="stylesheet" th:href="@{/css/edit.css}"/>
+</head>
+<body>
+<div class="wrapper">
+    <h2>修改信息</h2>
+    <form action="/admin/updateStu" method="post">
+        <div class="formList">
+
+            <div class="item">
+                <label for="stuId">学号:</label>
+                <input name="stuId" class="disable" id="stuId" type="text" th:value="${student.getStuId()}" placeholder="学号" readonly="readonly"
+                       autocomplete="off" />
+            </div>
+
+            <div class="item">
+                <label for="stuName">姓名:</label>
+                <input name="stuName" class="disable" id="stuName" type="text" th:value="${student.getStuName()}" placeholder="学生姓名" readonly="readonly" autocomplete="off" />
+            </div>
+
+            <div class="item">
+                <label for="birth">出生日期:</label>
+                <input name="birth" id="birth" type="text" th:value="${student.getBirth()}" placeholder="出生日期" autocomplete="off" />
+            </div>
+
+            <div class="item">
+                <label for="gender">性别:</label>
+                <!-- <input id="gender" type="text" th:value="${student.getGender()}" placeholder="请选择性别" /> -->
+                <select id="gender" name="gender">
+                    <option value="0" th:selected="${student.getGender() == 0}">未知</option>
+                    <option value="1" th:selected="${student.getGender() == 1}">男</option>
+                    <option value="2" th:selected="${student.getGender() == 2}">女</option>
+                </select>
+            </div>
+
+            <div class="item">
+                <label for="idCard">身份证号:</label>
+                <input name="idCard" id="idCard" type="text" th:value="${student.getIdCard()}" placeholder="身份证号" autocomplete="off" />
+            </div>
+
+            <div class="item">
+                <label for="major">专业:</label>
+                <input name="major" id="major" type="text" th:value="${student.getMajor()}" placeholder="专业名称" autocomplete="off" />
+            </div>
+
+            <div class="item">
+                <label for="grade">入学时间:</label>
+                <input name="grade" id="grade" type="text" th:value="${student.getGrade()}" placeholder="入学时间" autocomplete="off" />
+            </div>
+
+            <div class="item">
+                <label for="stuClass">班级:</label>
+                <input name="stuClass" id="stuClass" type="text" th:value="${student.getStuClass()}" placeholder="班级名称" autocomplete="off" />
+            </div>
+
+            <button type="submit" class="btn">提交</button>
+            <button type="button" class="btn back" onclick="location.href='http://localhost:8888/admin/getStudentList'">返回</button>
+        </div>
+    </form>
+</div>
+</body>
+
+</html>

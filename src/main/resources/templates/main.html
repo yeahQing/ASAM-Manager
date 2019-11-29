@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>教务系统</title>
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+</head>
+<body>
+<div class="wrapper">
+    <div class="sidebar">
+        <h2><i class="fab fa-earlybirds"></i>教务系统</h2>
+        <ul th:each="menu : ${menuList}">
+            <li class="item" th:id="${menu.getUrl()}">
+                <!--     如果一级菜单没有子菜单    -->
+                <a th:class="${menu.getName() == '首页'}?'menu_item menu_item_active':'menu_item'" th:if="${menu.getChildMenus() == null}" th:href="${menu.getUrl()}" th:inline="text" th:target="${menu.getName() == '首页'}?'contentFrame'">
+                    <i th:class="${menu.getIcon()}"></i>
+                    <!--thymeleaf内联表达式-->
+                    [[${menu.getName()}]]
+                </a>
+                <!--如果一级菜单有子菜单-->
+                <a class="menu_item btn" th:if="${menu.getChildMenus() != null}" th:href="'#'+${menu.getUrl()}" th:inline="text">
+                    <i th:class="${menu.getIcon()}"></i>
+                    <!--thymeleaf内联表达式-->
+                    [[${menu.getName()}]]
+                </a>
+                <div class="smenu">
+                    <a class="smenu_item" th:each="childMenu : ${menu.getChildMenus()}" th:inline="text" th:href="${childMenu.getUrl()}"  target="contentFrame">
+                        <i th:class="${childMenu.getIcon()}"></i>
+                        [[${childMenu.getName()}]]
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <div class="social_media">
+            &copy;&nbsp;2019
+            <br>Design By YeahQing
+        </div>
+    </div>
+    <div class="main_content">
+        <div class="header">
+            <label id="path_title" th:text="${path_title}">首页</label>
+            <span th:text="${session.user.userName+'('+session.user.roleName+')'}"></span>
+        </div>
+        <!--   管理员iframe     -->
+        <iframe id="contentFrame" name="contentFrame" width="100%" scrolling="no" frameborder="0" allowtransparency="true" th:src="${content}"></iframe>
+    </div>
+</div>
+</body>
+<script th:src="@{/js/jquery/jquery-3.4.1.js}"></script>
+<script type="text/javascript">
+    //显示隐藏父菜单
+    $(".menu_item").on('click',function (e) {
+        var path =  e.target.innerText;
+        $(".menu_item").removeClass("menu_item_active");
+        $(".smenu_item").removeClass("active");
+        e.target.classList.add("menu_item_active");
+        if(path.trim() != '退出登录' && path.trim() == '首页'){
+            document.location.hash = 'home';
+            $("#path_title")[0].innerText = path.trim();
+        }
+    });
+    //显示隐藏子菜单
+    $(".smenu_item").on('click',function (e) {
+        var path = e.target.parentNode.parentNode.children[0].innerText + " > " + e.target.innerText;
+        $("#path_title")[0].innerText = path.trim();
+        $(".menu_item").removeClass("menu_item_active");
+        $(".smenu_item").removeClass("active");
+        e.target.parentNode.parentNode.children[0].classList.add("menu_item_active");
+        e.target.classList.add("active");
+    });
+    //iframe高度自适应
+    $(function () {
+        setIframeHeight($('#contentFrame')[0]);
+    })
+
+    function setIframeHeight(iframe) {
+        if (iframe) {
+            var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+            if (iframeWin.document.body) {
+                //754.4-748.8
+                var currentWindowHeight = $(window)[0].innerHeight - $('.header')[0].offsetHeight;
+                iframe.height = Math.max(iframeWin.document.body.scrollHeight,currentWindowHeight-10);
+            }
+        }
+    };
+
+    setInterval(function () {
+        setIframeHeight($('#contentFrame')[0])
+    }, 200)
+
+</script>
+</html>
