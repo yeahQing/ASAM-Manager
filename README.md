@@ -36,7 +36,7 @@ Mysql: 8.0.18
 
 ### 思维导图
 
-![image-20191104145912283](images\选课系统.png)
+![eduM](images\eduM.png)
 
 ### 数据字典
 
