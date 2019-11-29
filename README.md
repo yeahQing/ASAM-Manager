@@ -36,7 +36,7 @@ Mysql: 8.0.18
 
 ### 思维导图
 
-![eduM](images\eduM.png)
+![eduM](https://github.com/yeahQing/ASAM-Manager/blob/master/images/eduM.png)
 
 ### 数据字典
 
