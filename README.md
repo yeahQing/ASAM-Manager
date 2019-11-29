@@ -36,17 +36,7 @@ Mysql: 8.0.18
 
 ### 思维导图
 
-![image-20191104145912283](C:\Users\ggpha\AppData\Roaming\Typora\typora-user-images\image-20191104145912283.png)
-
-## 详细设计
-
-### 用例图
-
-![image-20191104151819196](C:\Users\ggpha\AppData\Roaming\Typora\typora-user-images\image-20191104151819196.png)
-
-### 类图
-
-![image-20191104152212537](C:\Users\ggpha\AppData\Roaming\Typora\typora-user-images\image-20191104152212537.png)
+![image-20191104145912283](images\选课系统.png)
 
 ### 数据字典
 
