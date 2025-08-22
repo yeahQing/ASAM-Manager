@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>课程打分</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+    <link rel="stylesheet" th:href="@{/css/tableStyle.css}">
+</head>
+<body>
+<div class="wrapper">
+    <table class="content-table">
+        <thead>
+        <tr>
+            <th>学号</th>
+            <th>课程号</th>
+            <th>课程名</th>
+            <th>成绩</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="info : ${lessonScorePage.getRecords()}">
+            <td th:text="${info.getStuId()}"></td>
+            <td th:text="${info.getLessonId()}"></td>
+            <td th:text="${info.getLessonName()}"></td>
+            <td>
+                <input class="score-value" name="score" th:id="'score'+${info.getId()}" type="text"  th:value="${info.getScore()}" placeholder="请输入成绩" autocomplete="off"/>
+            </td>
+<!--            <td><a th:href="${'/teacher/confirmScore/'+info.getId()+'/'+lessonId+'?score='+info.getScore()}" class="del" id="confirm">确认</a></td>-->
+            <td><a href="javascript:;" th:data-id="${info.getId()}" class="del" id="confirm" onclick="confirm(this.getAttribute('data-id'))">确认</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${lessonScorePage.getTotal() == 0}" class="info-empty">
+        暂无信息
+    </div>
+    <div th:if="${lessonScorePage.getTotal() != 0}" class="pagination">
+        <ul>
+            <li>
+                <!--   上一页  -->
+                <a th:class="${lessonScorePage.getCurrent()==1}?'disable'" th:href="@{/teacher/addLessonScore/${lessonId}(page=${lessonScorePage.getCurrent()}-1)}"><i class="fas fa-chevron-left"></i></a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(1,lessonScorePage.getPages())}">
+                <a th:href="@{/teacher/addLessonScore/${lessonId}(page=${i})}" th:text="${i}" th:class="${i == lessonScorePage.getCurrent()}?'active'"></a>
+            </li>
+            <li>
+                <!--   下一页  -->
+                <a th:class="${lessonScorePage.getCurrent()==lessonScorePage.getPages()}?'disable'" th:href="@{/teacher/addLessonScore/${lessonId}(page=${lessonScorePage.getCurrent()}+1)}"><i class="fas fa-chevron-right"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+<script th:src="@{/js/jquery/jquery-3.4.1.js}"></script>
+<script th:inline="javascript">
+    function confirm(id) {
+        var item = '#score' + id;
+        console.log($(item));
+        var score = $(item).val();
+        if(score < 0 || score > 100){
+            $(item)[0].value = "输入错误!";
+        }else{
+            var url = "/teacher/confirmScore/"+id+"/"+/*[[${lessonId}]]*/'';
+            console.log(url+"?score="+score);
+            location.href= url+"?score="+score;
+        }
+    }
+</script>
+</html>

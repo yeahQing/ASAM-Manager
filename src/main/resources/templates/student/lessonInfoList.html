@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>待选课程</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+    <link rel="stylesheet" th:href="@{/css/tableStyle.css}">
+</head>
+<body>
+<div class="wrapper">
+    <table class="content-table">
+        <thead>
+        <tr>
+            <th>课程号</th>
+            <th>课程名</th>
+            <th>上课时间</th>
+            <th>上课地点</th>
+            <th>课时</th>
+            <th>学分</th>
+            <th>授课教师</th>
+            <th>考试类型</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="info : ${lessonInfo.getRecords()}">
+            <td th:text="${info.getLessonId()}"></td>
+            <td th:text="${info.getLessonName()}"></td>
+            <td th:text="${info.getLessonDay()+info.getLessonDate()}"></td>
+            <td th:text="${info.getLessonClass()}"></td>
+            <td th:text="${info.getLessonTime()}"></td>
+            <td th:text="${info.getLessonScore()}"></td>
+            <td th:text="${info.getTeacherName()}"></td>
+            <td th:text="${info.getLessonType()}"></td>
+            <td><a th:href="${'/student/chooseLesson/'+info.getLessonId()}" class="edit">选课</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${lessonInfo.getTotal() == 0}" class="info-empty">
+        暂无信息
+    </div>
+    <div th:if="${lessonInfo.getTotal() != 0}" class="pagination">
+        <ul>
+            <li>
+                <!--   上一页  -->
+                <a th:class="${lessonInfo.getCurrent()==1}?'disable'" th:href="@{/teacher/getLessonInfo(page=${lessonInfo.getCurrent()}-1)}"><i class="fas fa-chevron-left"></i></a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(1,lessonInfo.getPages())}">
+                <a th:href="@{/student/getLessonInfo(page=${i})}" th:text="${i}" th:class="${i == lessonInfo.getCurrent()}?'active'"></a>
+            </li>
+            <li>
+                <!--   下一页  -->
+                <a th:class="${lessonInfo.getCurrent()==lessonInfo.getPages()}?'disable'" th:href="@{/teacher/getLessonInfo(page=${lessonInfo.getCurrent()}+1)}"><i class="fas fa-chevron-right"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

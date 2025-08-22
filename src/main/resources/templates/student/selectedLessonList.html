@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>已选课程</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+    <link rel="stylesheet" th:href="@{/css/tableStyle.css}">
+</head>
+<body>
+<div class="wrapper">
+    <table class="content-table">
+        <thead>
+        <tr>
+            <th>课程号</th>
+            <th>课程名</th>
+            <th>成绩</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="info : ${stuLesson.getRecords()}">
+            <td th:text="${info.getLessonId()}"></td>
+            <td th:text="${info.getLessonName()}"></td>
+            <td th:text="${info.getScore()}" th:class="${info.getScore() >= 60}? 'pass' : 'unpass' "></td>
+            <td th:if="${info.getScore() != 0}"><a href="javascript:;" class="edit">详情</a></td>
+            <td th:if="${info.getScore() == 0}"><a th:href="${'/student/quitLesson/'+info.getLessonId()}" class="del">退课</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${stuLesson.getTotal() == 0}" class="info-empty">
+        暂无信息
+    </div>
+    <div th:if="${stuLesson.getTotal() != 0}" class="pagination">
+        <ul>
+            <li>
+                <!--   上一页  -->
+                <a th:class="${stuLesson.getCurrent()==1}?'disable'" th:href="@{/teacher/getSelectedLesson(page=${stuLesson.getCurrent()}-1)}"><i class="fas fa-chevron-left"></i></a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(1,stuLesson.getPages())}">
+                <a th:href="@{/student/getSelectedLesson(page=${i})}" th:text="${i}" th:class="${i == stuLesson.getCurrent()}?'active'"></a>
+            </li>
+            <li>
+                <!--   下一页  -->
+                <a th:class="${stuLesson.getCurrent()==stuLesson.getPages()}?'disable'" th:href="@{/teacher/getSelectedLesson(page=${stuLesson.getCurrent()}+1)}"><i class="fas fa-chevron-right"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

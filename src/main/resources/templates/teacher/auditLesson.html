@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>课程审计</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+    <link rel="stylesheet" th:href="@{/css/tableStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/confirm/confirm.css}"/>
+    <script th:src="@{/js/confirm/confirm.js}"></script>
+</head>
+<body>
+<div class="wrapper">
+    <table class="content-table">
+        <thead>
+        <tr>
+            <th>课程号</th>
+            <th>申请时间</th>
+            <th>审核状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="info : ${teacherLessonVoIPage.getRecords()}">
+            <td th:text="${info.getLessonId()}"></td>
+            <td th:text="${info.getDate()}"></td>
+            <td th:switch="${info.getState()}">
+                <label th:case="0" th:text="未审核" style="color: #333333"></label>
+                <label th:case="1" th:text="审核通过" style="color: #90ee90"></label>
+                <label th:case="2" th:text="审核未通过" style="color: #ee5253"></label>
+            </td>
+            <td th:if="${info.getState() == 1}"><a th:href="${'/teacher/addLessonScore/'+info.getLessonId()}" class="edit">开始打分</a></td>
+            <td th:if="${info.getState() == 2}"><a href="javascript:;" th:data-id="${info.getLessonId()}" onclick="subInfo(this.getAttribute('data-id'))" class="edit">重新申请</a></td>
+            <td th:unless="${info.getState() == 1 or info.getState() == 2}"><a href="javascript:;" th:data-id="${info.getLessonId()}" onclick="subInfo(this.getAttribute('data-id'))" class="edit">提醒审核</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${teacherLessonVoIPage.getTotal() == 0}" class="info-empty">
+        暂无信息
+    </div>
+    <div th:if="${teacherLessonVoIPage.getTotal() != 0}" class="pagination">
+        <ul>
+            <li>
+                <!--   上一页  -->
+                <a th:class="${teacherLessonVoIPage.getCurrent()==1}?'disable'" th:href="@{/teacher/auditLesson(page=${teacherLessonVoIPage.getCurrent()}-1)}"><i class="fas fa-chevron-left"></i></a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(1,teacherLessonVoIPage.getPages())}">
+                <a th:href="@{/teacher/auditLesson(page=${i})}" th:text="${i}" th:class="${i == teacherLessonVoIPage.getCurrent()}?'active'"></a>
+            </li>
+            <li>
+                <!--   下一页  -->
+                <a th:class="${teacherLessonVoIPage.getCurrent()==teacherLessonVoIPage.getPages()}?'disable'" th:href="@{/teacher/auditLesson(page=${teacherLessonVoIPage.getCurrent()}+1)}"><i class="fas fa-chevron-right"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+<script>
+    function subInfo(lessonId){
+        Confirm.open({
+            title: '提示',
+            message: '您申请的课程编号为'+lessonId+'已经成功提交!',
+            onok: () => {
+                location.href='/teacher/changeLessonState/'+lessonId;
+            }
+        })
+    }
+</script>
+</html>

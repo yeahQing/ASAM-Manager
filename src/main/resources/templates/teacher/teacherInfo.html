@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>教师信息页面</title>
+    <link rel="stylesheet" th:href="@{/css/edit.css}"/>
+</head>
+<body>
+<div class="wrapper">
+    <h2>教师信息</h2>
+    <form action="/teacher/saveTeacher" method="post">
+        <div class="formList">
+
+            <div class="item">
+                <label for="teacherId">教职工号:</label>
+                <input name="teacherId" class="disable" id="teacherId" type="text" th:value="${teacher.getTeacherId()}" placeholder="教职工号" readonly="readonly"
+                       autocomplete="off" />
+            </div>
+
+            <div class="item">
+                <label for="teacherName">姓名:</label>
+                <input name="teacherName" class="disable" id="teacherName" type="text" th:value="${teacher.getTeacherName()}" placeholder="教师姓名" readonly="readonly" autocomplete="off" />
+            </div>
+
+            <div class="item">
+                <label for="birth">出生日期:</label>
+                <input name="birth" id="birth" type="text" th:value="${teacher.getBirth()}" placeholder="出生日期" autocomplete="off" />
+            </div>
+
+            <div class="item">
+                <label for="gender">性别:</label>
+                <!-- <input id="gender" type="text" th:value="${student.getGender()}" placeholder="请选择性别" /> -->
+                <select id="gender" name="gender">
+                    <option value="0" th:selected="${teacher.getGender() == 0}">未知</option>
+                    <option value="1" th:selected="${teacher.getGender() == 1}">男</option>
+                    <option value="2" th:selected="${teacher.getGender() == 2}">女</option>
+                </select>
+            </div>
+
+            <div class="item">
+                <label for="idCard">身份证号:</label>
+                <input name="idCard" id="idCard" type="text" th:value="${teacher.getIdCard()}" placeholder="身份证号" autocomplete="off" />
+            </div>
+
+            <div class="item">
+                <label for="job">职位:</label>
+                <input name="job" id="job" type="text" th:value="${teacher.getJob()}" placeholder="职位" autocomplete="off" />
+            </div>
+
+            <div class="item">
+                <label for="profess">职称:</label>
+                <input name="profess" id="profess" type="text" th:value="${teacher.getProfess()}" placeholder="职称" autocomplete="off" />
+            </div>
+
+            <div class="item">
+                <label for="educational">教育背景:</label>
+                <input name="educational" id="educational" type="text" th:value="${teacher.getEducational()}" placeholder="教育背景" autocomplete="off" />
+            </div>
+
+            <div class="item">
+                <label for="studyFiled">研究方向:</label>
+                <input name="studyFiled" id="studyFiled" type="text" th:value="${teacher.getStudyFiled()}" placeholder="研究方向" autocomplete="off" />
+            </div>
+
+            <div class="item">
+                <label for="department">所属部门/学院:</label>
+                <input name="department" id="department" type="text" th:value="${teacher.getDepartment()}" placeholder="所属部门/学院" autocomplete="off" />
+            </div>
+
+            <button type="submit" class="btn">保存</button>
+        </div>
+    </form>
+</div>
+</body>
+
+</html>
